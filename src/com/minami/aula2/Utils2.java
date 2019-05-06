@@ -1,15 +1,13 @@
 package com.minami.aula2;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 import com.minami.util.UtilGeral;
 
 public class Utils2 extends UtilGeral {
 
 	// peça dois números e imprima o maior deles
-	public double returnBiggestNumber(List<? extends Number> numbers) {
+	public static double returnBiggestNumber(List<? extends Number> numbers) {
 		double biggestNumber = 0;
 		for (int i = 0; i < numbers.size(); i++) {
 			if ( biggestNumber < (double)numbers.get(i)) {
@@ -19,7 +17,7 @@ public class Utils2 extends UtilGeral {
 		return biggestNumber;
 	}
 	
-	public String showSexType(List<String> listValues) {
+	public static String showSexType(List<String> listValues) {
 		String result = "";
 		
 		for (String value : listValues) {
@@ -40,7 +38,7 @@ public class Utils2 extends UtilGeral {
 
 	}
 	
-	public String verifyStringType(List<String> listValues) {
+	public static String verifyStringType(List<String> listValues) {
 		String result = "";
 		
 		for (String value : listValues) {
@@ -57,4 +55,16 @@ public class Utils2 extends UtilGeral {
 		
 	}
 	
+	public static double getPercentualReajusteSalario(double salario) {
+		if (salario <= 280) {
+			return 20;
+		} else if (salario > 280 && salario < 700 ) {
+			return 15;
+		} else if (salario >= 700 && salario < 1500) {
+			return 10;
+		} else {
+			return 5;
+		}
+		
+	}
 }

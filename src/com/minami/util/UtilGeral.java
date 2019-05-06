@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UtilGeral {
-	public List<String> readInput(String message) throws Exception{
+	public static List<String> readInput(String message) throws Exception{
 		Scanner in = new Scanner(System.in);
 		System.out.println(message);
 	    String[] answer = in.next().split(",");
@@ -15,7 +15,7 @@ public class UtilGeral {
 	    return answerList; 
 	} 
 	
-	public List<? extends Number> convertStringToNumber(List<String> stringNumbers){
+	public static List<? extends Number> convertStringToNumber(List<String> stringNumbers){
 		List<Double> numbersList = new ArrayList<Double>();
 		for(String stringNumber:stringNumbers) {
 			numbersList.add(Double.parseDouble(stringNumber));
