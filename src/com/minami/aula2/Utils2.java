@@ -57,14 +57,18 @@ public class Utils2 extends UtilGeral {
 	
 	public static double getPercentualReajusteSalario(double salario) {
 		if (salario <= 280) {
-			return 20;
+			return 0.20;
 		} else if (salario > 280 && salario < 700 ) {
-			return 15;
+			return 0.15;
 		} else if (salario >= 700 && salario < 1500) {
-			return 10;
+			return 0.10;
 		} else {
-			return 5;
+			return 0.05;
 		}
 		
+	}
+	
+	public static String formataPercentual(double valor) {
+		return String.valueOf(valor * 100) + "%";
 	}
 }

@@ -7,10 +7,10 @@ import java.util.List;
 import com.minami.aula1.loiane.Utils;
 
 public class ExerciciosAula15 {
-	DecimalFormat formataNumero = new DecimalFormat("#.##0,00");
+	static DecimalFormat formataMoeda = new DecimalFormat("#,##0.00");
 	
 	public static void main(String[] args) throws Exception{
-		verifyStringType();
+		imprimeInformacoesSalario();
 	}
 	
 	private static void returnBiggestNumber() throws Exception{
@@ -30,11 +30,16 @@ public class ExerciciosAula15 {
 	
 	private static void imprimeInformacoesSalario() throws Exception{
 		//salario, perc, vl aument, novo sal
-		String salarioInformado = Utils2.readInput("Informe o valor do salário");
+		String salarioInformado = Utils2.readOneInput("Informe o valor do salário");
 		double salario = Double.parseDouble(salarioInformado);
-		double valorReajuste = Utils2.getPercentualReajusteSalario(salario);
+		double percentualReajuste = Utils2.getPercentualReajusteSalario(salario);
+		double valorReajuste = salario * percentualReajuste;
+		double salarioReajustado = salario + valorReajuste;
 		
-		System.out.println("Salario informado " + formataNumero.format(salario) );
+		System.out.println("Salario informado " + formataMoeda.format(salario) 
+			+ ", percentual reajuste " + Utils2.formataPercentual(percentualReajuste)
+			+ ", valor aumento " + formataMoeda.format(valorReajuste)
+			+ ", novo salário " + formataMoeda.format(salarioReajustado));
 		
 	}
 	

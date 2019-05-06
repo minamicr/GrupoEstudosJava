@@ -23,5 +23,11 @@ public class UtilGeral {
 		return numbersList;
 	}
 	
+	public static String readOneInput(String message) throws Exception{
+		Scanner in = new Scanner(System.in);
+		System.out.println(message);
+	    String answer = in.next();
+	    return answer; 
+	} 
 
 }
