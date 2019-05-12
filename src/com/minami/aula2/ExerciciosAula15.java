@@ -5,6 +5,7 @@ import java.text.NumberFormat;
 import java.util.List;
 
 import com.minami.aula1.loiane.Utils;
+import com.minami.type.TipoCarne;
 
 public class ExerciciosAula15 {
 	static DecimalFormat formataMoeda = new DecimalFormat("#,##0.00");
@@ -43,5 +44,19 @@ public class ExerciciosAula15 {
 		
 	}
 	
+	private static void imprimirCupomFiscal() throws Exception{
+		String tipoCarneInput = Utils2.readOneInput("Informe o tipo de carne (FileDuplo, Alcatra, Picanha");
+		String quantidadeInput = Utils2.readOneInput("Quantos quilos de carne deseja comprar ?");
+		String isCartaoTabajaraInput = Utils2.readOneInput("Você pagará com o cartão Tabajara ? (s / n)");
+		
+		TipoCarne tipoCarne = Utils2.convertToTipoCarne(tipoCarneInput);
+		Double quantidade = Utils2.convertToDouble(quantidadeInput);
+		boolean isCartaoTabajara = Utils2.convertToBoolean(isCartaoTabajaraInput);
+		
+		CupomFiscal cupomFiscal = Utils2.gerarCupomFiscal(tipoCarne, quantidade, isCartaoTabajara);
+		
+		Utils2.imprimirCupomFiscal(cupomFiscal);
+
+	}
 	
 }
