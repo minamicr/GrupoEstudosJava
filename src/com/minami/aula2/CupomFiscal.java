@@ -1,15 +1,20 @@
 package com.minami.aula2;
 
+import java.text.DecimalFormat;
+
 public class CupomFiscal {
 	private String produto;
 	private Double quantidade;
+	private Double precoUnitario;
 	private Double precoTotal;
 	private Double valorDesconto;
 	private Double valorAPagar;
+	private DecimalFormat nf = new DecimalFormat("#,##0.00");
 	
-	CupomFiscal (String produto, Double quantidade, Double precoTotal, Double valorDesconto, Double valorAPagar){
+	CupomFiscal (String produto, Double quantidade, Double precoUnitario, Double precoTotal, Double valorDesconto, Double valorAPagar){
 		this.produto = produto;
 		this.quantidade = quantidade;
+		this.precoUnitario = precoUnitario;
 		this.precoTotal = precoTotal;
 		this.valorDesconto = valorDesconto;
 		this.valorAPagar = valorAPagar;
@@ -27,6 +32,12 @@ public class CupomFiscal {
 	public void setQuantidade(Double quantidade) {
 		this.quantidade = quantidade;
 	}
+	public Double getPrecoUnitario() {
+		return precoUnitario;
+	}
+	public void setPrecoUnitario(Double precoUnitario) {
+		this.precoUnitario = precoUnitario;
+	}	
 	public Double getPrecoTotal() {
 		return precoTotal;
 	}
@@ -48,8 +59,8 @@ public class CupomFiscal {
 
 	@Override
 	public String toString() {
-		return "CupomFiscal [produto=" + produto + ", quantidade=" + quantidade + ", precoTotal=" + precoTotal
-				+ ", valorDesconto=" + valorDesconto + ", valorAPagar=" + valorAPagar + "]";
+		return "CupomFiscal [produto=" + produto + ", quantidade=" + quantidade + ", precoUnitario="+ nf.format(precoUnitario) + ", precoTotal=" + nf.format(precoTotal)
+				+ ", valorDesconto=" + nf.format(valorDesconto) + ", valorAPagar=" + nf.format(valorAPagar) + "]";
 	}
 	
 	

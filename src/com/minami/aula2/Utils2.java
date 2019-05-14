@@ -79,7 +79,7 @@ public class Utils2 extends UtilGeral {
 	
 	public static TipoCarne convertToTipoCarne(String tipoCarne) throws Exception {
 		return TipoCarne.stream()
-        	.filter(d -> d.tipoCarne.equals(tipoCarne))
+        	.filter(d -> d.tipoCarne.equals(tipoCarne.toUpperCase()))
         	.findFirst()
         	.orElseThrow(IllegalArgumentException::new);
 		
@@ -100,34 +100,17 @@ public class Utils2 extends UtilGeral {
 		}
 	}
 	
-	public static boolean convertToBoolean(String resposta) throws Exception {
-		Optional<RespostaSimNao> respostaEncontrada = RespostaSimNao.stream()
-				.filter(d -> d.name().equals(resposta))
-				.findFirst();
-		
-		if (respostaEncontrada.isPresent()) {
-			switch(respostaEncontrada.get()) {
-				case N:
-					return false;
-				case Não:
-					return false;
-				case Nao:
-					return false;
-				case S:
-					return true;
-				case Sim:
-					return true;
-				default:
-					throw new Exception("Não foi informada uma resposta válida para a utilização do cartão Tabajara !");
-			}
-		} else {
-			throw new Exception("Não foi informada uma resposta válida para a utilização do cartão Tabajara !");
-		}
+	public static RespostaSimNao convertToBoolean(String resposta) throws Exception {
+
+		return RespostaSimNao.stream()
+				.filter(d -> d.getResposta().equals(resposta.toUpperCase()))
+				.findFirst()
+				.orElseThrow(IllegalArgumentException::new);
 	}
 	
-	public static CupomFiscal gerarCupomFiscal(TipoCarne tipoCarne, Double quantidade, boolean isCartaoTabajara) {
-		Double preco = getPrecoCarne(tipoCarne, quantidade);
-		Double precoTotal = preco * quantidade;
+	public static CupomFiscal gerarCupomFiscal(TipoCarne tipoCarne, Double peso, boolean isCartaoTabajara) {
+		Double precoQuilo = getPrecoCarne(tipoCarne, peso);
+		Double precoTotal = precoQuilo * peso;
 		Double valorDesconto = 0.0;
 		Double valorAPagar = 0.0;
 		
@@ -137,7 +120,7 @@ public class Utils2 extends UtilGeral {
 		
 		valorAPagar = precoTotal - valorDesconto;
 
-		return new CupomFiscal(tipoCarne.name(),quantidade, precoTotal, valorDesconto, valorAPagar);
+		return new CupomFiscal(tipoCarne.name(), peso, precoQuilo, precoTotal, valorDesconto, valorAPagar);
 	}
 	
 	public static Double getPrecoCarne(TipoCarne tipoCarne, Double quantidade) {

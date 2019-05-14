@@ -3,9 +3,9 @@ package com.minami.type;
 import java.util.stream.Stream;
 
 public enum TipoCarne {
-	FileDuplo("File Duplo"),
-	Alcatra("Alcatra"),
-	Picanha("Picanha");
+	FileDuplo("FILE DUPLO"),
+	Alcatra("ALCATRA"),
+	Picanha("PICANHA");
 	
 	public String tipoCarne;
 	
