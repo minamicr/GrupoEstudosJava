@@ -6,6 +6,15 @@ public class CupomFiscal {
 	private Double precoTotal;
 	private Double valorDesconto;
 	private Double valorAPagar;
+	
+	CupomFiscal (String produto, Double quantidade, Double precoTotal, Double valorDesconto, Double valorAPagar){
+		this.produto = produto;
+		this.quantidade = quantidade;
+		this.precoTotal = precoTotal;
+		this.valorDesconto = valorDesconto;
+		this.valorAPagar = valorAPagar;
+	}
+	
 	public String getProduto() {
 		return produto;
 	}
@@ -35,6 +44,12 @@ public class CupomFiscal {
 	}
 	public void setValorAPagar(Double valorAPagar) {
 		this.valorAPagar = valorAPagar;
+	}
+
+	@Override
+	public String toString() {
+		return "CupomFiscal [produto=" + produto + ", quantidade=" + quantidade + ", precoTotal=" + precoTotal
+				+ ", valorDesconto=" + valorDesconto + ", valorAPagar=" + valorAPagar + "]";
 	}
 	
 	

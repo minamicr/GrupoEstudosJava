@@ -1,5 +1,7 @@
 package com.minami.type;
 
+import java.util.stream.Stream;
+
 public enum PrecoCarne {
 	FileDuploAte5Kg(4.9),
 	FileDuploAcima5Kg(5.8),
@@ -18,4 +20,7 @@ public enum PrecoCarne {
 		return this.preco;
 	}
 
+	public static Stream<PrecoCarne> stream() {
+        return Stream.of(PrecoCarne.values()); 
+    }
 }

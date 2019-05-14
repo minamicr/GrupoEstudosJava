@@ -2,7 +2,9 @@ package com.minami.aula2;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.minami.type.PrecoCarne;
 import com.minami.type.RespostaSimNao;
 import com.minami.type.TipoCarne;
 import com.minami.util.UtilGeral;
@@ -76,15 +78,17 @@ public class Utils2 extends UtilGeral {
 	}
 	
 	public static TipoCarne convertToTipoCarne(String tipoCarne) throws Exception {
-		Optional<TipoCarne> tipoCarneEncontrado = TipoCarne.stream()
+		return TipoCarne.stream()
         	.filter(d -> d.tipoCarne.equals(tipoCarne))
-        	.findFirst();
+        	.findFirst()
+        	.orElseThrow(IllegalArgumentException::new);
 		
+		/* 
 		if (tipoCarneEncontrado.isPresent()) {
 			return tipoCarneEncontrado.get();
 		} else {
 			throw new Exception("Não foi informado um tipo de carne válido !");
-		}
+		}*/
 		
 	}
 	
@@ -122,10 +126,34 @@ public class Utils2 extends UtilGeral {
 	}
 	
 	public static CupomFiscal gerarCupomFiscal(TipoCarne tipoCarne, Double quantidade, boolean isCartaoTabajara) {
-		return null;
+		Double preco = getPrecoCarne(tipoCarne, quantidade);
+		Double precoTotal = preco * quantidade;
+		Double valorDesconto = 0.0;
+		Double valorAPagar = 0.0;
+		
+		if (isCartaoTabajara) {
+			valorDesconto = precoTotal * 0.05;
+		}
+		
+		valorAPagar = precoTotal - valorDesconto;
+
+		return new CupomFiscal(tipoCarne.name(),quantidade, precoTotal, valorDesconto, valorAPagar);
+	}
+	
+	public static Double getPrecoCarne(TipoCarne tipoCarne, Double quantidade) {
+		List<PrecoCarne> precoCarne = PrecoCarne.stream()
+				.filter(d -> d.name().contains(tipoCarne.name()))
+				.collect(Collectors.toList());
+		
+		if (quantidade <= 5 ) {
+			return precoCarne.stream().filter(d -> d.name().contains("Ate5Kg")).mapToDouble(d -> d.getPreco()).sum();
+		} else {
+			return precoCarne.stream().filter(d -> d.name().contains("Acima5Kg")).mapToDouble(d -> d.getPreco()).sum();
+		}
+		
 	}
 	
 	public static void imprimirCupomFiscal(CupomFiscal cupomFiscal) {
-		
+		System.err.println(cupomFiscal.toString());
 	}
 }
