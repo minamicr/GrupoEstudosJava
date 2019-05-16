@@ -59,8 +59,8 @@ public class CupomFiscal {
 
 	@Override
 	public String toString() {
-		return "CupomFiscal [produto=" + produto + ", quantidade=" + quantidade + ", precoUnitario="+ nf.format(precoUnitario) + ", precoTotal=" + nf.format(precoTotal)
-				+ ", valorDesconto=" + nf.format(valorDesconto) + ", valorAPagar=" + nf.format(valorAPagar) + "]";
+		return "CupomFiscal [produto=" + produto + " | quantidade=" + quantidade + " | precoUnitario="+ nf.format(precoUnitario) + " | precoTotal=" + nf.format(precoTotal)
+				+ " | valorDesconto=" + nf.format(valorDesconto) + " | valorAPagar=" + nf.format(valorAPagar) + "]";
 	}
 	
 	

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.minami.constants.Constants;
 import com.minami.type.PrecoCarne;
 import com.minami.type.RespostaSimNao;
 import com.minami.type.TipoCarne;
@@ -81,15 +82,7 @@ public class Utils2 extends UtilGeral {
 		return TipoCarne.stream()
         	.filter(d -> d.tipoCarne.equals(tipoCarne.toUpperCase()))
         	.findFirst()
-        	.orElseThrow(IllegalArgumentException::new);
-		
-		/* 
-		if (tipoCarneEncontrado.isPresent()) {
-			return tipoCarneEncontrado.get();
-		} else {
-			throw new Exception("Não foi informado um tipo de carne válido !");
-		}*/
-		
+        	.orElseThrow(() -> new IllegalArgumentException("Não foi informado um tipo de carne válido !"));
 	}
 	
 	public static Double convertToDouble(String valor) throws Exception {
@@ -105,7 +98,7 @@ public class Utils2 extends UtilGeral {
 		return RespostaSimNao.stream()
 				.filter(d -> d.getResposta().equals(resposta.toUpperCase()))
 				.findFirst()
-				.orElseThrow(IllegalArgumentException::new);
+				.orElseThrow(() -> new IllegalArgumentException("Não foi informada uma resposta válida para o cartão Tabajara!"));
 	}
 	
 	public static CupomFiscal gerarCupomFiscal(TipoCarne tipoCarne, Double peso, boolean isCartaoTabajara) {
@@ -115,7 +108,7 @@ public class Utils2 extends UtilGeral {
 		Double valorAPagar = 0.0;
 		
 		if (isCartaoTabajara) {
-			valorDesconto = precoTotal * 0.05;
+			valorDesconto = precoTotal * Constants.ValorDescontoCartaoTabajara;
 		}
 		
 		valorAPagar = precoTotal - valorDesconto;
