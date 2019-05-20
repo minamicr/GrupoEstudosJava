@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.minami.constants.Constants;
 import com.minami.type.PrecoCarne;
+import com.minami.type.Produto;
 import com.minami.type.RespostaSimNao;
 import com.minami.type.TipoCarne;
 import com.minami.util.UtilGeral;
@@ -101,31 +102,26 @@ public class Utils2 extends UtilGeral {
 				.orElseThrow(() -> new IllegalArgumentException("Não foi informada uma resposta válida para o cartão Tabajara!"));
 	}
 	
-	public static CupomFiscal gerarCupomFiscal(TipoCarne tipoCarne, Double peso, boolean isCartaoTabajara) {
-		Double precoQuilo = getPrecoCarne(tipoCarne, peso);
-		Double precoTotal = precoQuilo * peso;
+	private Double getDescontoCartaoTabajara(boolean isCartaoTabajara) {
+		if (isCartaoTabajara) {
+			return Constants.ValorDescontoCartaoTabajara;
+		} else {
+			return 0.0;
+		}
+	}
+	
+	public static CupomFiscal gerarCupomFiscal(Produto produto, Double quantidade, Double percentualDesconto) {
+		Double valorUnitario = produto.getValorUnitario(quantidade); 
+		Double valorTotal = valorUnitario * quantidade;
 		Double valorDesconto = 0.0;
 		Double valorAPagar = 0.0;
 		
-		if (isCartaoTabajara) {
-			valorDesconto = precoTotal * Constants.ValorDescontoCartaoTabajara;
-		}
+		valorDesconto = (percentualDesconto > 0 ? valorTotal * percentualDesconto : 0);
 		
-		valorAPagar = precoTotal - valorDesconto;
+		valorAPagar = valorTotal - valorDesconto;
 
-		return new CupomFiscal(tipoCarne.name(), peso, precoQuilo, precoTotal, valorDesconto, valorAPagar);
-	}
-	
-	public static Double getPrecoCarne(TipoCarne tipoCarne, Double quantidade) {
-		List<PrecoCarne> precoCarne = PrecoCarne.stream()
-				.filter(d -> d.name().contains(tipoCarne.name()))
-				.collect(Collectors.toList());
-		
-		if (quantidade <= 5 ) {
-			return precoCarne.stream().filter(d -> d.name().contains("Ate5Kg")).mapToDouble(d -> d.getPreco()).sum();
-		} else {
-			return precoCarne.stream().filter(d -> d.name().contains("Acima5Kg")).mapToDouble(d -> d.getPreco()).sum();
-		}
+		return new CupomFiscal(produto.getNome(), quantidade, valorUnitario, valorTotal, percentualDesconto, valorDesconto, valorAPagar);
+
 		
 	}
 	

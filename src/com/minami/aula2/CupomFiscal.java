@@ -7,15 +7,17 @@ public class CupomFiscal {
 	private Double quantidade;
 	private Double precoUnitario;
 	private Double precoTotal;
+	private Double percentualDesconto;
 	private Double valorDesconto;
 	private Double valorAPagar;
 	private DecimalFormat nf = new DecimalFormat("#,##0.00");
 	
-	CupomFiscal (String produto, Double quantidade, Double precoUnitario, Double precoTotal, Double valorDesconto, Double valorAPagar){
+	CupomFiscal (String produto, Double quantidade, Double precoUnitario, Double precoTotal, Double percentualDesconto, Double valorDesconto, Double valorAPagar){
 		this.produto = produto;
 		this.quantidade = quantidade;
 		this.precoUnitario = precoUnitario;
 		this.precoTotal = precoTotal;
+		this.percentualDesconto = percentualDesconto;
 		this.valorDesconto = valorDesconto;
 		this.valorAPagar = valorAPagar;
 	}
@@ -44,6 +46,12 @@ public class CupomFiscal {
 	public void setPrecoTotal(Double precoTotal) {
 		this.precoTotal = precoTotal;
 	}
+	public Double getPercentualDesconto() {
+		return this.percentualDesconto;
+	}
+	public void setPercentualDesconto(Double percentualDesconto) {
+		this.percentualDesconto = percentualDesconto;
+	}
 	public Double getValorDesconto() {
 		return valorDesconto;
 	}
@@ -60,7 +68,7 @@ public class CupomFiscal {
 	@Override
 	public String toString() {
 		return "CupomFiscal [produto=" + produto + " | quantidade=" + quantidade + " | precoUnitario="+ nf.format(precoUnitario) + " | precoTotal=" + nf.format(precoTotal)
-				+ " | valorDesconto=" + nf.format(valorDesconto) + " | valorAPagar=" + nf.format(valorAPagar) + "]";
+				+ " | percentualDesconto = " + nf.format(percentualDesconto) + " | valorDesconto=" + nf.format(valorDesconto) + " | valorAPagar=" + nf.format(valorAPagar) + "]";
 	}
 	
 	

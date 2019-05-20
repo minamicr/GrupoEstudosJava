@@ -59,4 +59,13 @@ public class ExerciciosAula15 {
 
 	}
 	
+	private static void imprimirCombustivel() throws Exception{
+		String tipoCombustivelInput = Utils2.readOneInput("Informe o tipo de combustível (Gasolina / Alcool)");
+		String litrosInput = Utils2.readOneInput("Informe a quantidade de litros de combustível:");
+		
+		TipoCombustivel tipoCombustivel = Utils2.convertToTipoCombustivel(tipoCombustivelInput);
+		Double litros = Utils2.convertToDouble(litrosInput);
+		
+		
+	}
 }
