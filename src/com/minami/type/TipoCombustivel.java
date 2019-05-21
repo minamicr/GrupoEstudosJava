@@ -1,8 +1,10 @@
 package com.minami.type;
 
+import java.util.stream.Stream;
+
 public enum TipoCombustivel {
-	ALCOOL ("Alcool", 1.90),
-	GASOLINA ("Gasolina", 2.50);
+	Alcool ("ALCOOL", 1.90),
+	Gasolina ("GASOLINA", 2.50);
 	
 	String tipoCombustivel;
 	Double preco;
@@ -15,8 +17,12 @@ public enum TipoCombustivel {
 	public Double getPreco() {
 		return preco;
 	}
-
-	public String getTipoCombustivel () {
+	
+	public String getTipoCombustivel() {
 		return tipoCombustivel;
 	}
+
+	public static Stream<TipoCombustivel> stream() {
+        return Stream.of(TipoCombustivel.values()); 
+    }
 }

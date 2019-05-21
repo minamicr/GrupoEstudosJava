@@ -6,9 +6,10 @@ import java.util.stream.Collectors;
 
 import com.minami.constants.Constants;
 import com.minami.type.PrecoCarne;
-import com.minami.type.Produto;
+import com.minami.model.Produto;
 import com.minami.type.RespostaSimNao;
 import com.minami.type.TipoCarne;
+import com.minami.type.TipoCombustivel;
 import com.minami.util.UtilGeral;
 
 public class Utils2 extends UtilGeral {
@@ -102,17 +103,11 @@ public class Utils2 extends UtilGeral {
 				.orElseThrow(() -> new IllegalArgumentException("Não foi informada uma resposta válida para o cartão Tabajara!"));
 	}
 	
-	private Double getDescontoCartaoTabajara(boolean isCartaoTabajara) {
-		if (isCartaoTabajara) {
-			return Constants.ValorDescontoCartaoTabajara;
-		} else {
-			return 0.0;
-		}
-	}
 	
-	public static CupomFiscal gerarCupomFiscal(Produto produto, Double quantidade, Double percentualDesconto) {
+	public static CupomFiscal gerarCupomFiscal(Produto produto, Double quantidade) {
 		Double valorUnitario = produto.getValorUnitario(quantidade); 
 		Double valorTotal = valorUnitario * quantidade;
+		Double percentualDesconto = produto.getValorDesconto();
 		Double valorDesconto = 0.0;
 		Double valorAPagar = 0.0;
 		
@@ -122,10 +117,16 @@ public class Utils2 extends UtilGeral {
 
 		return new CupomFiscal(produto.getNome(), quantidade, valorUnitario, valorTotal, percentualDesconto, valorDesconto, valorAPagar);
 
-		
 	}
 	
 	public static void imprimirCupomFiscal(CupomFiscal cupomFiscal) {
 		System.err.println(cupomFiscal.toString());
+	}
+	
+	public static TipoCombustivel convertToTipoCombustivel(String tipoCombustivel) throws Exception {
+		return TipoCombustivel.stream()
+        	.filter(d -> d.getTipoCombustivel().equals(tipoCombustivel.toUpperCase()))
+        	.findFirst()
+        	.orElseThrow(() -> new IllegalArgumentException("Não foi informado um tipo de combustível válido !"));
 	}
 }

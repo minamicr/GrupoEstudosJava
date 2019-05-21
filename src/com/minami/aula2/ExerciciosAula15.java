@@ -5,13 +5,16 @@ import java.text.NumberFormat;
 import java.util.List;
 
 import com.minami.aula1.loiane.Utils;
+import com.minami.model.ProdutoTipoCarne;
+import com.minami.model.ProdutoTipoCombustivel;
 import com.minami.type.TipoCarne;
+import com.minami.type.TipoCombustivel;
 
 public class ExerciciosAula15 {
 	static DecimalFormat formataMoeda = new DecimalFormat("#,##0.00");
 	
 	public static void main(String[] args) throws Exception{
-		imprimirCupomFiscal();
+		imprimirCupomFiscalCombustivel();
 	}
 	
 	private static void returnBiggestNumber() throws Exception{
@@ -44,7 +47,7 @@ public class ExerciciosAula15 {
 		
 	}
 	
-	private static void imprimirCupomFiscal() throws Exception{
+	private static void imprimirCupomFiscalCarne() throws Exception{
 		String tipoCarneInput = Utils2.readOneInput("Informe o tipo de carne (FileDuplo, Alcatra, Picanha)");
 		String quantidadeInput = Utils2.readOneInput("Quantos quilos de carne deseja comprar ?");
 		String isCartaoTabajaraInput = Utils2.readOneInput("Você pagará com o cartão Tabajara ? (s / n)");
@@ -53,18 +56,24 @@ public class ExerciciosAula15 {
 		Double quantidade = Utils2.convertToDouble(quantidadeInput);
 		boolean isCartaoTabajara = Utils2.convertToBoolean(isCartaoTabajaraInput).getBooleanValue();
 		
-		CupomFiscal cupomFiscal = Utils2.gerarCupomFiscal(tipoCarne, quantidade, isCartaoTabajara);
+		ProdutoTipoCarne produtoTipoCarne = new ProdutoTipoCarne(tipoCarne, isCartaoTabajara);
+		CupomFiscal cupomFiscal = Utils2.gerarCupomFiscal(produtoTipoCarne, quantidade);
 		
 		Utils2.imprimirCupomFiscal(cupomFiscal);
 
 	}
 	
-	private static void imprimirCombustivel() throws Exception{
+	private static void imprimirCupomFiscalCombustivel() throws Exception{
 		String tipoCombustivelInput = Utils2.readOneInput("Informe o tipo de combustível (Gasolina / Alcool)");
-		String litrosInput = Utils2.readOneInput("Informe a quantidade de litros de combustível:");
+		String quantidadeLitrosInput = Utils2.readOneInput("Informe a quantidade de litros de combustível:");
 		
 		TipoCombustivel tipoCombustivel = Utils2.convertToTipoCombustivel(tipoCombustivelInput);
-		Double litros = Utils2.convertToDouble(litrosInput);
+		Double quantidadeLitros = Utils2.convertToDouble(quantidadeLitrosInput);
+		
+		ProdutoTipoCombustivel produtoTipoCombustivel = new ProdutoTipoCombustivel(tipoCombustivel, quantidadeLitros);
+		CupomFiscal cupomFiscal = Utils2.gerarCupomFiscal(produtoTipoCombustivel, quantidadeLitros);
+		
+		Utils2.imprimirCupomFiscal(cupomFiscal);
 		
 		
 	}
