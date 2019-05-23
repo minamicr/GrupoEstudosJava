@@ -2,19 +2,20 @@ package com.minami.aula3;
 
 import com.minami.model.PopulacaoModel;
 import com.minami.type.Populacao;
+import com.minami.util.UtilGeral;
 
-public class Utils3 {
+public class Utils3 extends UtilGeral{
 	
 	public static Integer calcularQtdeAnosCrescimento() {
 		Populacao parametrosA = Populacao.stream()
 								.filter(populacao -> populacao.name().contains("A"))
 								.findAny()
-								.orElseThrow(() -> new IllegalArgumentException("Não foi informado um tipo de carne válido !"));
+								.orElseThrow(() -> new IllegalArgumentException("Não foi informada uma população válida !"));
 		
 		Populacao parametrosB = Populacao.stream()
 				.filter(populacao -> populacao.name().contains("B"))
 				.findAny()
-				.orElseThrow(() -> new IllegalArgumentException("Não foi informado um tipo de carne válido !"));
+				.orElseThrow(() -> new IllegalArgumentException("Não foi informada uma população válida !"));
 		
 		PopulacaoModel populacaoA = new PopulacaoModel(parametrosA.getQuantidadeHabitantes(), parametrosA.getPercentualCrescimento());
 		PopulacaoModel populacaoB = new PopulacaoModel(parametrosB.getQuantidadeHabitantes(), parametrosB.getPercentualCrescimento());
@@ -39,4 +40,6 @@ public class Utils3 {
 		
 		return qtdeAnos;
 	}
+	
+	
 }
