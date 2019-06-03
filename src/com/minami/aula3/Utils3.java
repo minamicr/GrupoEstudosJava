@@ -42,4 +42,23 @@ public class Utils3 extends UtilGeral{
 	}
 	
 	
+	public static Integer fatorialRecursivo(Integer numero) {
+		if (numero > 1) {
+			return numero * fatorialRecursivo (numero - 1);
+		} else {
+			return 1;
+		}
+	}
+	
+	public static Integer fatorial(Integer numero) {
+		Integer resultado = numero;
+		Integer numeroAtual = numero;
+		
+		while (numeroAtual > 1) {
+			numeroAtual -= 1;
+			resultado = resultado * (numeroAtual);
+		}
+		
+		return resultado;
+	}
 }
